@@ -4,7 +4,7 @@
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-yellow.svg)](./LICENSE)
 [![LGPD](https://img.shields.io/badge/LGPD-Lei%2013.709%2F2018-blue)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm)
-![Status](https://img.shields.io/badge/status-em%20constru%C3%A7%C3%A3o-orange)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-0.2.0-green)
 
 ---
 
@@ -22,32 +22,30 @@ O que diferencia o kit:
 
 ## Skills
 
-| Skill | O que faz | Situação |
-|---|---|---|
-| `lgpd-auditoria` | Maestro: entrevista, escolhe o caminho, coordena as outras skills e mantém o estado em `.lgpd/STATUS.md`. | ✅ |
-| `lgpd-descoberta` | Detecta stack e camadas, identifica o nicho e gera o inventário de dados pessoais (com script). | ✅ |
-| `lgpd-requisitos` | Catálogo de 55 requisitos, 9 obrigações organizacionais e referência normativa. | ✅ |
-| `lgpd-banco-de-dados` | Auditoria da camada de banco. | 🚧 |
-| `lgpd-backend` | Auditoria da camada de back-end. | 🚧 |
-| `lgpd-frontend` | Auditoria da camada de front-end. | 🚧 |
-| `lgpd-infra` | Auditoria da infraestrutura. | 🚧 |
-| `lgpd-organizacional` | Obrigações da organização (encarregado, contratos, governança). | 🚧 |
-| `lgpd-documentos` | Política de privacidade, registro das operações, RIPD, termos e contratos. | 🚧 |
-| `lgpd-consentimento` | Código de consentimento por finalidade, com versão do texto. | 🚧 |
-| `lgpd-direitos-titular` | Código para os pedidos do titular, com controle de prazos. | 🚧 |
-| `lgpd-trilha-auditoria` | Trilha encadeada e à prova de alteração, sem dado pessoal em claro. | 🚧 |
-| `lgpd-pseudonimizacao` | Separação de dados, pseudônimo com HMAC, sem metadados de ligação. | 🚧 |
-| `lgpd-anonimizacao-relatorios` | Relatórios anonimizados com medição de risco (k, l, risco médio e máximo) e utilidade. | 🚧 |
-| `lgpd-incidentes` | Levantamento de afetados e comunicação no prazo da Res. CD/ANPD nº 15/2024. | 🚧 |
-
-✅ disponível · 🚧 planejada
+| Skill | O que faz |
+|---|---|
+| `lgpd-auditoria` | Maestro: entrevista, escolhe o caminho, coordena as outras skills e mantém o estado em `.lgpd/STATUS.md`. |
+| `lgpd-descoberta` | Detecta stack e camadas, identifica o nicho e gera o inventário de dados pessoais (com script). |
+| `lgpd-requisitos` | Catálogo de 55 requisitos, 9 obrigações organizacionais e referência normativa. |
+| `lgpd-banco-de-dados` | Auditoria da camada de banco. |
+| `lgpd-backend` | Auditoria da camada de back-end. |
+| `lgpd-frontend` | Auditoria da camada de front-end. |
+| `lgpd-infra` | Auditoria da infraestrutura. |
+| `lgpd-organizacional` | Obrigações da organização (encarregado, contratos, governança). |
+| `lgpd-documentos` | Política de privacidade, registro das operações, RIPD, termos e contratos. |
+| `lgpd-consentimento` | Código de consentimento por finalidade, com versão do texto. |
+| `lgpd-direitos-titular` | Código para os pedidos do titular, com controle de prazos. |
+| `lgpd-trilha-auditoria` | Trilha encadeada e à prova de alteração, sem dado pessoal em claro. |
+| `lgpd-pseudonimizacao` | Separação de dados, pseudônimo com HMAC, sem metadados de ligação. |
+| `lgpd-anonimizacao-relatorios` | Relatórios anonimizados com medição de risco (k, l, risco médio e máximo) e utilidade. |
+| `lgpd-incidentes` | Levantamento de afetados e comunicação no prazo da Res. CD/ANPD nº 15/2024. |
 
 ## Instalação
 
 ### Claude Code
 
 ```text
-/plugin marketplace add SEU_USUARIO/lgpd-kit
+/plugin marketplace add Gabriel-Oliveir4/LGPD-Skills
 /plugin install lgpd-kit@lgpd-kit
 ```
 
@@ -56,12 +54,12 @@ O que diferencia o kit:
 Funciona com qualquer agente que leia skills de `~/.claude/skills/` ou `.claude/skills/`:
 
 ```bash
-git clone https://github.com/SEU_USUARIO/lgpd-kit.git
-cp -r lgpd-kit/skills/lgpd-* ~/.claude/skills/        # para todos os projetos
-# ou: cp -r lgpd-kit/skills/lgpd-* .claude/skills/   # só para o projeto atual
+git clone https://github.com/Gabriel-Oliveir4/LGPD-Skills.git
+cp -r LGPD-Skills/skills/lgpd-* ~/.claude/skills/        # para todos os projetos
+# ou: cp -r LGPD-Skills/skills/lgpd-* .claude/skills/   # só para o projeto atual
 ```
 
-O script de inventário precisa apenas de **Python 3.9+**, sem dependências.
+Os scripts (inventário, anonimização e estimativa de reversão de hash) precisam apenas de **Python 3.9+**, sem dependências. Os esquemas SQL foram testados no PostgreSQL 16.
 
 ## Como usar
 
@@ -75,6 +73,26 @@ Peça ao assistente, em linguagem natural:
 
 O maestro faz a entrevista inicial e segue daí. Também dá para chamar uma skill diretamente, por exemplo: "use a skill lgpd-descoberta".
 
+## Exemplo: anonimização com risco medido
+
+Com uma base fictícia de 2.000 atendimentos de clínica (gerada por `gerar_exemplo.py`), o script compara as configurações:
+
+```bash
+python3 skills/lgpd-anonimizacao-relatorios/scripts/anonimizar.py comparar atendimentos.csv \
+  --qi idade,sexo,bairro,data_diag --sensivel resultado --remover nome,cpf \
+  --faixa idade=10 --data data_diag=trimestre --mapa bairro=regioes.csv \
+  --k 2,5,10 --l 2 --estatistica bairro --risco-aceitavel 0.2
+```
+
+| Config. | Tratamento | k | Risco médio | Risco máximo | Grupos homogêneos | Suprimidos (%) |
+|---|---|---|---|---|---|---|
+| C0 | Sem tratamento (só sem nome e CPF) | 1 | 0,997 | 1,000 | 1992 | 0,0 |
+| C1 | Generalização | 1 | 0,162 | 1,000 | 92 | 0,0 |
+| C3 | Generalização + k=5 | 5 | 0,110 | 0,200 | 13 | 14,9 |
+| C4 | C3 (k=5) + l=2 | 5 | 0,108 | 0,200 | 0 | 19,2 |
+
+Tirar nome e CPF quase não muda nada: 99% dos registros continuam únicos. A generalização derruba o risco médio, mas ainda deixa pessoas sozinhas no grupo (risco máximo 1). Só com supressão por *k* e *l* nenhum grupo fica pequeno ou homogêneo, ao custo de suprimir parte dos registros.
+
 ## O que fica em `.lgpd/`
 
 ```
@@ -84,6 +102,7 @@ O maestro faz a entrevista inicial e segue daí. Também dá para chamar uma ski
 ├── inventario-dados.md        # dados pessoais por tabela e campo
 ├── matriz-rastreabilidade.md  # requisito → artigo → código → status
 ├── plano-acao.md              # correções priorizadas
+├── anonimizacao/              # extrações anonimizadas e relatórios de risco
 ├── documentos/                # política, registro das operações, RIPD...
 └── incidentes/                # registro de incidentes (mínimo 5 anos)
 ```
@@ -115,7 +134,7 @@ Enquanto fazia o TCC, pensei que isso poderia ajudar quem desenvolve sistemas no
 
 - o **catálogo de requisitos** e as **obrigações da organização** (`lgpd-requisitos`), adaptados para qualquer nicho;
 - o modelo da **matriz** que liga artigo → requisito → código;
-- o **método de anonimização com medição de risco**, que vai virar a skill `lgpd-anonimizacao-relatorios`.
+- o **método de anonimização com medição de risco**, que virou a skill `lgpd-anonimizacao-relatorios`.
 
 > OLIVEIRA, Gabriel Jaime de. *Transformação de Exigências da LGPD em Requisitos de Software para a Proteção de Dados Pessoais Sensíveis*. Trabalho de Conclusão de Curso (Tecnologia em Sistemas para Internet) — Universidade Federal de Santa Maria, Santa Maria, 2026. Em andamento.
 

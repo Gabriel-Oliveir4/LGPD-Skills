@@ -9,18 +9,18 @@ Sequência de skills de cada caminho e o que fazer se uma delas ainda não estiv
 | `lgpd-auditoria` | Maestro: entrevista, caminho e estado | ✅ disponível |
 | `lgpd-descoberta` | Stack, camadas, nicho e inventário de dados | ✅ disponível |
 | `lgpd-requisitos` | Catálogo de requisitos, obrigações e referência normativa | ✅ disponível |
-| `lgpd-banco-de-dados` | Auditoria da camada de banco | 🚧 planejada |
-| `lgpd-backend` | Auditoria da camada de back-end | 🚧 planejada |
-| `lgpd-frontend` | Auditoria da camada de front-end | 🚧 planejada |
-| `lgpd-infra` | Auditoria da infraestrutura | 🚧 planejada |
-| `lgpd-organizacional` | Obrigações da organização | 🚧 planejada |
-| `lgpd-documentos` | Política de privacidade, registro das operações, RIPD, termos, contratos | 🚧 planejada |
-| `lgpd-consentimento` | Código de consentimento com versão do texto | 🚧 planejada |
-| `lgpd-direitos-titular` | Código para pedidos do titular e prazos | 🚧 planejada |
-| `lgpd-trilha-auditoria` | Código de trilha encadeada, sem dado pessoal em claro | 🚧 planejada |
-| `lgpd-pseudonimizacao` | Separação dos dados, HMAC, sem metadados de ligação | 🚧 planejada |
-| `lgpd-anonimizacao-relatorios` | Relatórios anonimizados com medição de risco e utilidade | 🚧 planejada |
-| `lgpd-incidentes` | Levantamento de afetados e comunicação no prazo | 🚧 planejada |
+| `lgpd-banco-de-dados` | Auditoria da camada de banco | ✅ disponível |
+| `lgpd-backend` | Auditoria da camada de back-end | ✅ disponível |
+| `lgpd-frontend` | Auditoria da camada de front-end | ✅ disponível |
+| `lgpd-infra` | Auditoria da infraestrutura | ✅ disponível |
+| `lgpd-organizacional` | Obrigações da organização | ✅ disponível |
+| `lgpd-documentos` | Política de privacidade, registro das operações, RIPD, termos, contratos | ✅ disponível |
+| `lgpd-consentimento` | Código de consentimento com versão do texto | ✅ disponível |
+| `lgpd-direitos-titular` | Código para pedidos do titular e prazos | ✅ disponível |
+| `lgpd-trilha-auditoria` | Código de trilha encadeada, sem dado pessoal em claro | ✅ disponível |
+| `lgpd-pseudonimizacao` | Separação dos dados, HMAC, sem metadados de ligação | ✅ disponível |
+| `lgpd-anonimizacao-relatorios` | Relatórios anonimizados com medição de risco e utilidade | ✅ disponível |
+| `lgpd-incidentes` | Levantamento de afetados e comunicação no prazo | ✅ disponível |
 
 ## Sequência por caminho
 
@@ -53,9 +53,9 @@ Sequência de skills de cada caminho e o que fazer se uma delas ainda não estiv
 2. Consulta à trilha (RF-33) para levantar dados e titulares afetados
 3. Registro do incidente em `.lgpd/incidentes/` (guardar por no mínimo 5 anos)
 
-## Se a skill ainda não estiver instalada
+## Se alguma skill não estiver instalada
 
-Enquanto as skills planejadas não existirem, siga esta orientação mínima e registre no STATUS que a etapa foi feita sem a skill específica.
+Se o usuário instalou só parte do kit, siga esta orientação mínima e registre no STATUS que a etapa foi feita sem a skill específica.
 
 - **Camadas (banco, back-end, front-end, infra):** use o catálogo de `lgpd-requisitos`, filtrando pela coluna "Camadas", e verifique cada requisito pela coluna "O que verificar".
 - **Organizacional:** use `lgpd-requisitos/references/obrigacoes-organizacionais.md`.

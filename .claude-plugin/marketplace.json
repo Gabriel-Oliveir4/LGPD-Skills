@@ -1,0 +1,16 @@
+{
+  "name": "lgpd-kit",
+  "owner": {
+    "name": "Gabriel Jaime de Oliveira",
+    "url": "https://github.com/Gabriel-Oliveir4"
+  },
+  "plugins": [
+    {
+      "name": "lgpd-kit",
+      "source": "./",
+      "description": "Adequação de sistemas à LGPD e às resoluções da ANPD, com auditoria por camada, matriz de rastreabilidade e anonimização com medição de risco.",
+      "version": "0.2.0",
+      "license": "MIT"
+    }
+  ]
+}

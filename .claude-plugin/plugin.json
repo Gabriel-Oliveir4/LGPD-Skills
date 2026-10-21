@@ -1,0 +1,13 @@
+{
+  "name": "lgpd-kit",
+  "description": "Skills para adequar sistemas à LGPD (Lei 13.709/2018) e às resoluções da ANPD: entrevista inicial, descoberta de nicho e dados pessoais, auditoria por camada (banco, back-end, front-end, infra), matriz de rastreabilidade artigo → requisito → código e anonimização com medição de risco.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Gabriel Jaime de Oliveira",
+    "url": "https://github.com/Gabriel-Oliveir4"
+  },
+  "homepage": "https://github.com/Gabriel-Oliveir4/LGPD-Skills",
+  "repository": "https://github.com/Gabriel-Oliveir4/LGPD-Skills",
+  "license": "MIT",
+  "keywords": ["lgpd", "privacidade", "protecao-de-dados", "anpd", "anonimizacao", "pseudonimizacao", "requisitos", "brasil"]
+}
